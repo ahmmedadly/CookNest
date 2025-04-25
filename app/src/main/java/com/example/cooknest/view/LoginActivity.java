@@ -8,11 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.example.cooknest.R;
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -31,22 +28,41 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 
+
 public class LoginActivity extends Activity {
     private EditText email, password;
     private Button loginButton;
     private Button loginfacebookButton;
     private TextView textRegister;
     private FirebaseAuth mAuth;
-
+    private static final String TAG = "LoginActivity";
     private CallbackManager mCallbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginButton facebookLoginButton = findViewById(R.id.buttonFacebookLogin);
+        facebookLoginButton.setReadPermissions("email", "public_profile");
 
-    ///    FacebookSdk.sdkInitialize(getApplicationContext());
-       // AppEventsLogger.activateApp(getApplication());
+        facebookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginActivity.this, "Facebook login canceled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(LoginActivity.this, "Facebook login error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
@@ -63,27 +79,6 @@ public class LoginActivity extends Activity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this.getApplication());
-
-        LoginButton loginButton = findViewById(R.id.buttonFacebookLogin);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d("tag", "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d("tag","facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d("tag", "facebook:onError", error);
-            }
-        });
-
         btnGuestLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,10 +95,9 @@ public class LoginActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Pass the activity result back to the Facebook SDK
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
     // [END on_activity_result]
 
     // [START auth_with_facebook]

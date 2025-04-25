@@ -15,7 +15,24 @@
         tools:targetApi="31">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <provider
+            android:name="com.facebook.internal.FacebookInitProvider"
+            android:authorities="${applicationId}.facebookinitprovider"
+            android:exported="false"
+            tools:node="merge"
+            tools:replace="android:authorities" />
         <activity
             android:name=".view.GuestHomeActivity"
             android:exported="false" />
@@ -39,4 +56,4 @@
         </activity>
     </application>
 
-</manifest>
+</manifest> 
