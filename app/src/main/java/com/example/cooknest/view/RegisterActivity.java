@@ -16,8 +16,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.AuthCredential;
 import com.google.android.gms.tasks.Task;
 
+import java.text.BreakIterator;
+
 public class RegisterActivity extends Activity {
-    private EditText email, password, confirmPassword;
+    private EditText name ,email, password, confirmPassword;
     private Button registerButton;
     private TextView textLogin;
     private FirebaseAuth mAuth;
@@ -85,11 +87,17 @@ public class RegisterActivity extends Activity {
     }
 
     private void registerUser() {
+
+        String userName = name.getText().toString().trim();
         String userEmail = email.getText().toString().trim();
         String userPassword = password.getText().toString().trim();
         String confirm = confirmPassword.getText().toString().trim();
 
-        if (userEmail.isEmpty() || userPassword.isEmpty() || confirm.isEmpty()) {
+        if (userName.isEmpty() ||userEmail.isEmpty() || userPassword.isEmpty() || confirm.isEmpty()) {
+            Toast.makeText(this, "All fields required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (userName.isEmpty() ||userEmail.isEmpty() || userPassword.isEmpty() || confirm.isEmpty()) {
             Toast.makeText(this, "All fields required", Toast.LENGTH_SHORT).show();
             return;
         }

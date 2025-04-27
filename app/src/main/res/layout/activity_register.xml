@@ -3,34 +3,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="24dp"
+    android:background="#FFF9F1"
     android:orientation="vertical">
-
+    <!-- App Title -->
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CookNest"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#FF5722"
+        android:layout_marginTop="40dp"/>
+    <!-- Register Inputs -->
+    <EditText
+        android:id="@+id/editTextRegisterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name" />
+    <!-- Email Input -->
     <EditText
         android:id="@+id/editTextRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"/>
-
+        android:hint="Email" />
+    <!-- Password Input -->
     <EditText
         android:id="@+id/editTextRegisterPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"/>
-
+<!-- Confirm Password Input -->
     <EditText
         android:id="@+id/editTextRegisterConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
         android:inputType="textPassword"/>
-
+<!-- Register Button -->
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"/>
-
+<!-- Redirect to Login -->
     <TextView
         android:id="@+id/textLogin"
         android:layout_width="match_parent"
@@ -39,7 +56,7 @@
         android:textAlignment="center"
         android:textColor="#0000FF"
         android:paddingTop="16dp"/>
-
+<!-- Google Login Button -->
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btnGoogleSignIn"
         android:layout_width="match_parent"

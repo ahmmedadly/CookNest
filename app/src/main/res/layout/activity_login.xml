@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="24dp"
+    android:background="#FFF9F1"
     android:orientation="vertical">
-
+<!-- App Title -->
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CookNest"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#FF5722"
+        android:layout_marginTop="40dp"/>
+<!-- Email Input -->
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"/>
-
+<!-- Password Input -->
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"/>
-
+<!-- Login Button -->
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login with Email" />
-
+<!-- Guest Login Button -->
     <TextView
         android:id="@+id/btnGuestLogin"
         android:layout_width="wrap_content"
@@ -35,13 +47,27 @@
         android:paddingTop="16dp"
         android:clickable="true"
         android:focusable="true" />
-
+<!-- Facebook Login Button -->
     <com.facebook.login.widget.LoginButton
         android:id="@+id/buttonFacebookLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
-
+<!-- Google Login Button -->
+    <Button
+        android:id="@+id/btnGoogleCustom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue with Google"
+        android:drawableStart="@drawable/ic_google_logo"
+        android:padding="12dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:drawablePadding="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"/>
+<!-- Redirect to Register  -->
     <TextView
         android:id="@+id/textRegister"
         android:layout_width="match_parent"
