@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import com.example.cooknest.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -23,15 +22,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
 
 public class LoginActivity extends Activity {
     private EditText email, password;
@@ -53,7 +49,7 @@ public class LoginActivity extends Activity {
         LoginButton facebookLoginButton = findViewById(R.id.buttonFacebookLogin);
         facebookLoginButton.setReadPermissions("email", "public_profile");
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id)) // From Firebase project settings
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -99,9 +95,9 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 Toast.makeText(LoginActivity.this, "You logged in as Guest", Toast.LENGTH_SHORT).show();
 
-                // Redirect to Guest Home Activity
-                Intent intent = new Intent(LoginActivity.this, GuestHomeActivity.class);
-                //TODO : hna b2a Start Implement el Activity elle b3daha el GuestHomeActivity lel app
+                // Redirect to  Home Activity
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                //TODO : hna b2a Start Implement el Activity elle b3daha el hya main bardo mesh guest bs close some features lel app
                 startActivity(intent);
                 finish();
             }
@@ -162,7 +158,16 @@ public class LoginActivity extends Activity {
                     }
                 });
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
     private void loginUser() {
         String userEmail = email.getText().toString().trim();
         String userPassword = password.getText().toString().trim();
@@ -175,6 +180,8 @@ public class LoginActivity extends Activity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                         //TODO: hna b2a Start el Activity elle b3daha el MainActivity lel app
 
                     } else {

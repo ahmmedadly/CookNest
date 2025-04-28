@@ -56,7 +56,8 @@ dependencies {
     annotationProcessor ("androidx.room:room-compiler:2.7.0")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.firebaseui:firebase-ui-auth:9.0.0")
-    implementation ("com.google.android.material:material:1.5.0")
+    implementation ("com.google.android.material:material:1.6.0")
+    implementation ("androidx.core:core:1.6.0")
     // 🔹 Facebook SDK
     implementation("com.facebook.android:facebook-login:16.3.0")
     implementation("com.facebook.android:facebook-android-sdk:latest.release")
