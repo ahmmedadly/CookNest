@@ -102,6 +102,22 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
+        TextView textForgotPassword = findViewById(R.id.textForgotPassword);
+        textForgotPassword.setOnClickListener(view -> {
+            String userEmail = email.getText().toString().trim();
+            if (userEmail.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Enter your email first", Toast.LENGTH_SHORT).show();
+            } else {
+                mAuth.sendPasswordResetEmail(userEmail)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "Password reset email sent", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Failed to send reset email", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
     }
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -158,7 +174,8 @@ public class LoginActivity extends Activity {
                     }
                 });
     }
-    @Override
+
+  /*  @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -167,7 +184,8 @@ public class LoginActivity extends Activity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
+
     private void loginUser() {
         String userEmail = email.getText().toString().trim();
         String userPassword = password.getText().toString().trim();
