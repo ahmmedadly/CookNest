@@ -85,7 +85,6 @@ public class LoginActivity extends Activity {
         });
         TextView btnGuestLogin = findViewById(R.id.btnGuestLogin);
 
-
         mCallbackManager = CallbackManager.Factory.create();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
