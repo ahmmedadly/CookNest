@@ -1,6 +1,7 @@
 package com.example.cooknest.data.db;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -14,16 +15,16 @@ public interface MealDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMeal(Meal meal);
 
-    @Query("SELECT * FROM meals")
-    List<Meal> getAllMeals();
+    @Delete
+    void deleteMeal(Meal meal);
 
-    @Query("SELECT * FROM meals WHERE isFavorite = 1")
-    List<Meal> getFavorites();
+    @Query("SELECT * FROM favorite_meals WHERE isFavorite = 1")
+    List<Meal> getAllFavoriteMeals();
 
-    @Query("SELECT * FROM meals WHERE idMeal = :id")
-    Meal getMealById(String id);
-
-    @Query("DELETE FROM meals")
-    void clearMeals();
+    @Query("SELECT * FROM favorite_meals WHERE isPlanned = 1")
+    List<Meal> getAllPlannedMeals();
+   // @Query("UPDATE meal_table SET isFavorite = :isFavorite WHERE idMeal = :mealId")
+    //void updateFavoriteStatus(String mealId, boolean isFavorite);
+    @Query("SELECT * FROM favorite_meals WHERE idMeal = :mealId")
+    Meal getMealById(int mealId);
 }
-

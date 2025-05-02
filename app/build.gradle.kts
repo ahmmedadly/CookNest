@@ -30,6 +30,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
 }
 
 dependencies {
@@ -56,14 +57,15 @@ dependencies {
     annotationProcessor ("androidx.room:room-compiler:2.7.0")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.firebaseui:firebase-ui-auth:9.0.0")
-    implementation ("com.google.android.material:material:1.6.0")
+    implementation ("com.google.android.material:material:1.6.1")
     implementation ("androidx.core:core:1.6.0")
     // 🔹 Facebook SDK
     implementation("com.facebook.android:facebook-login:16.3.0")
     implementation("com.facebook.android:facebook-android-sdk:latest.release")
     implementation ("androidx.asynclayoutinflater:asynclayoutinflater:1.0.0")
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("androidx.room:room-runtime:2.6.1")
-    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+
 }

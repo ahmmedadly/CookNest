@@ -1,37 +1,36 @@
 package com.example.cooknest.data.db;
 
 import android.content.Context;
-
+import com.example.cooknest.data.db.MealDao;
+import com.example.cooknest.data.db.MealsDatabase;
 import com.example.cooknest.data.model.Meal;
-
 import java.util.List;
-import java.util.concurrent.Executors;
 
 public class MealRepository {
     private MealDao mealDao;
 
     public MealRepository(Context context) {
-        MealsDatabase db = MealsDatabase.getInstance(context);
-        mealDao = db.mealDao();
+        MealsDatabase database = MealsDatabase.getInstance(context);
+        mealDao = database.mealDao();
     }
 
     public void insertMeal(Meal meal) {
-        Executors.newSingleThreadExecutor().execute(() -> mealDao.insertMeal(meal));
+        new Thread(() -> mealDao.insertMeal(meal)).start();
     }
 
-    public List<Meal> getAllMeals() {
-        return mealDao.getAllMeals();
+    public void deleteMeal(Meal meal) {
+        new Thread(() -> mealDao.deleteMeal(meal)).start();
     }
 
-    public List<Meal> getFavorites() {
-        return mealDao.getFavorites();
+    public List<Meal> getAllFavoriteMeals() {
+        return mealDao.getAllFavoriteMeals();
     }
 
-    public void cacheApiMeals(List<Meal> meals) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            for (Meal meal : meals) {
-                mealDao.insertMeal(meal);
-            }
-        });
+    public List<Meal> getAllPlannedMeals() {
+        return mealDao.getAllPlannedMeals();
+    }
+
+    public Meal getMealById(int mealId) {
+        return mealDao.getMealById(mealId);
     }
 }

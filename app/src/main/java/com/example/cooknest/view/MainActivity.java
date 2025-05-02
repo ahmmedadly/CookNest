@@ -1,53 +1,54 @@
 package com.example.cooknest.view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import com.example.cooknest.R;
+import com.example.cooknest.view.Fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
+import com.example.cooknest.view.Fragments.SearchFragment;
+import com.example.cooknest.view.Fragments.FavoritesFragment;
+import com.example.cooknest.view.Fragments.PlannerFragment;
+import com.example.cooknest.view.Fragments.ProfileFragment;
 public class MainActivity extends AppCompatActivity {
-
     private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
             int itemId = item.getItemId();
+
             if (itemId == R.id.nav_home) {
-                showToast("Home Selected");
-                return true;
+                selectedFragment = new HomeFragment();
+            } else if (itemId == R.id.nav_search) {
+                selectedFragment = new SearchFragment();
+            } else if (itemId == R.id.nav_favorites) {
+                selectedFragment = new FavoritesFragment();
+            } else if (itemId == R.id.nav_calendar) {
+                selectedFragment = new PlannerFragment();
+
+            } else if (itemId == R.id.nav_profile) {
+                selectedFragment = new ProfileFragment();
+
             }
-            else if (itemId == R.id.nav_search) {
-                showToast("Search Selected");
-                return true;
-            }
-            else if (itemId == R.id.nav_favorites) {
-                showToast("Favorites Selected");
-                return true;
-            }
-            else if (itemId == R.id.nav_calendar) {
-                showToast("Calendar Selected");
-                return true;
-            }
-            else if (itemId == R.id.nav_profile) {
-                showToast("Profile Selected");
+
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
                 return true;
             }
             return false;
         });
 
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        // Set default fragment
+        if (savedInstanceState == null) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        }
     }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-    //TODO : add fragments for each tab Ya king
 }
