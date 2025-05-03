@@ -18,6 +18,7 @@ import com.example.cooknest.data.db.MealRepository;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.Adapters.MealAdapter;
 import com.example.cooknest.view.MealDetailsActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class FavoritesFragment extends Fragment {
     private MealRepository mealRepository;
     private MealAdapter adapter;
     private TextView tvEmpty;
+    private SwipeRefreshLayout swipeRefreshFavorites;
 
     @Nullable
     @Override
@@ -41,33 +43,38 @@ public class FavoritesFragment extends Fragment {
 
         mealRepository = new MealRepository(requireActivity());
         setupAdapter();
+        swipeRefreshFavorites = view.findViewById(R.id.swipeRefresh);
+        swipeRefreshFavorites.setOnRefreshListener(() -> {
+            loadFavorites();  // Reload data
+        });
+
         loadFavorites();
         Log.d("FavoritesFragment", "Favorites fragment created");
 
         return view;
     }
-/*@Override
-public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    mealRepository = new MealRepository(requireActivity());
-    adapter = new MealAdapter(
-            meal -> {
-                // Handle meal click
-                Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
-                intent.putExtra("MEAL_ID", meal.getIdMeal());
-                startActivity(intent);
-            },
-            (meal, isFavorite) -> {
-                // Handle favorite toggle
-                if (!isFavorite) {
-                    mealRepository.deleteMeal(meal);
-                    Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
-                    loadFavorites(); // Refresh the list after removal
+    /*@Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+        mealRepository = new MealRepository(requireActivity());
+        adapter = new MealAdapter(
+                meal -> {
+                    // Handle meal click
+                    Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
+                    intent.putExtra("MEAL_ID", meal.getIdMeal());
+                    startActivity(intent);
+                },
+                (meal, isFavorite) -> {
+                    // Handle favorite toggle
+                    if (!isFavorite) {
+                        mealRepository.deleteMeal(meal);
+                        Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+                        loadFavorites(); // Refresh the list after removal
+                    }
                 }
-            }
-    );}*/
+        );}*/
     private void setupAdapter() {
-         adapter = new MealAdapter(
+        adapter = new MealAdapter(
                 meal -> {
                     // Handle meal click - open details
                     Intent intent = new Intent(getContext(), MealDetailsActivity.class);
@@ -85,32 +92,33 @@ public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceStat
                 }
         );
     }
-        private void loadFavorites () {
+    private void loadFavorites () {
 
-            MutableLiveData<List <Meal> >mealLiveData = new MutableLiveData<>();
-            mealLiveData.observe(getViewLifecycleOwner(), meals -> {
-                if (meals != null && !meals.isEmpty()) {
-                    recyclerView.setVisibility(View.VISIBLE);
-                    adapter.setMeals(mealLiveData.getValue());
-                    recyclerView.setAdapter(adapter);
-                    Log.d("HomeFragment", "Meals loaded: " + meals.size());
+        MutableLiveData<List <Meal> >mealLiveData = new MutableLiveData<>();
+        mealLiveData.observe(getViewLifecycleOwner(), meals -> {
+            if (meals != null && !meals.isEmpty()) {
+                recyclerView.setVisibility(View.VISIBLE);
+                adapter.setMeals(mealLiveData.getValue());
+                recyclerView.setAdapter(adapter);
+                Log.d("HomeFragment", "Meals loaded: " + meals.size());
+            } else {
+                Log.d("HomeFragment", "No meals found.");
+            }
+        });
+
+        new Thread(() -> {
+            List<Meal> favorites = mealRepository.getAllFavoriteMeals();
+            requireActivity().runOnUiThread(() -> {
+                swipeRefreshFavorites.setRefreshing(false);
+                if (favorites == null || favorites.isEmpty()) {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                 } else {
-                    Log.d("HomeFragment", "No meals found.");
+                    Log.d("FavoritesFragment", "Favorites loaded: " + favorites.size());
+                    tvEmpty.setVisibility(View.GONE);
+                    mealLiveData.postValue(favorites);
                 }
             });
-
-            new Thread(() -> {
-                List<Meal> favorites = mealRepository.getAllFavoriteMeals();
-                requireActivity().runOnUiThread(() -> {
-                    if (favorites == null || favorites.isEmpty()) {
-                        tvEmpty.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.GONE);
-                    } else {
-                        Log.d("FavoritesFragment", "Favorites loaded: " + favorites.size());
-                        tvEmpty.setVisibility(View.GONE);
-                        mealLiveData.postValue(favorites);
-                    }
-                });
-            }).start();
-        }
+        }).start();
     }
+}
