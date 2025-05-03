@@ -1,6 +1,7 @@
 package com.example.cooknest.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,10 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         setContentView(R.layout.activity_meal_details);
 
         String mealId = getIntent().getStringExtra("MEAL_ID");
+
+
+        Log.d("MealDetailsActivity", "MealId: " + mealId);
+
         presenter = new MealDetailsPresenter(this, getApplicationContext());
 
         fabFavorite = findViewById(R.id.fabFavorite);
@@ -42,6 +47,10 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
 
     @Override
     public void showMealDetails(Meal meal) {
+        if (meal == null) {
+            showError("No meal details available");
+            return;
+        }
         Glide.with(this)
                 .load(meal.getStrMealThumb())
                 .into((ImageView) findViewById(R.id.ivMealThumb));
@@ -49,8 +58,10 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         ((TextView) findViewById(R.id.tvMealName)).setText(meal.getStrMeal());
         ((TextView) findViewById(R.id.tvArea)).setText(meal.getStrArea());
         ((TextView) findViewById(R.id.tvCategory)).setText(meal.getStrCategory());
-        ((TextView) findViewById(R.id.tvInstructions)).setText(meal.getStrInstructions());
-    }
+        String instructions = meal.getStrInstructions()
+                .replace("\r\n", "\n")  // Fix line endings
+                .replace(". ", ".\n• "); // Add bullet points
+        ((TextView) findViewById(R.id.tvInstructions)).setText("• " + instructions);    }
 
     @Override
     public void setFavoriteStatus(boolean isFavorite) {
@@ -58,7 +69,12 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         fabFavorite.setImageResource(isFavorite ?
                 R.drawable.ic_favorite_filled : R.drawable.ic_favorite_border);
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Notify fragments to refresh
+        setResult(RESULT_OK);
+    }
     @Override
     public void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

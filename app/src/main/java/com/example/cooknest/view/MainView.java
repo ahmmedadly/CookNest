@@ -9,6 +9,7 @@ public interface MainView {
     void showCategories();
     void showAreas();
     void showIngredients();
+    void showLoading(boolean isLoading);
     void showError(String message);
     void showMessage(String message);
 }

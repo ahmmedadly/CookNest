@@ -1,9 +1,10 @@
-package com.example.cooknest.view.adapters;
+package com.example.cooknest.Adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -15,14 +16,20 @@ import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
     private List<Meal> meals;
-    private OnMealClickListener listener;
+    private final OnMealClickListener listener;
+    private final OnFavoriteClickListener favoriteListener;
 
     public interface OnMealClickListener {
         void onMealClick(Meal meal);
     }
 
-    public MealAdapter(OnMealClickListener listener) {
+    public interface OnFavoriteClickListener {
+        void onFavoriteClick(Meal meal, boolean isFavorite);
+    }
+
+    public MealAdapter(OnMealClickListener listener, OnFavoriteClickListener favoriteListener) {
         this.listener = listener;
+        this.favoriteListener = favoriteListener;
     }
 
     public void setMeals(List<Meal> meals) {
@@ -51,30 +58,36 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
 
     class MealViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivMeal;
-        private final TextView tvMealName;
-        private final TextView tvMealCategory;
-        private final Button btnViewDetails;
+        private final TextView tvMealName, tvMealCategory;
+        private final ImageButton btnFavorite;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
             ivMeal = itemView.findViewById(R.id.ivMeal);
             tvMealName = itemView.findViewById(R.id.tvMealName);
             tvMealCategory = itemView.findViewById(R.id.tvMealCategory);
-            btnViewDetails = itemView.findViewById(R.id.btnViewDetails);
+            btnFavorite = itemView.findViewById(R.id.btnFavorite);
         }
 
-        public void bind(Meal meal) {
+        void bind(Meal meal) {
             tvMealName.setText(meal.getStrMeal());
             tvMealCategory.setText(meal.getStrCategory());
             Glide.with(itemView.getContext())
                     .load(meal.getStrMealThumb())
                     .into(ivMeal);
 
-            btnViewDetails.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onMealClick(meal);
-                }
+            btnFavorite.setImageResource(meal.isFavorite() ?
+                    R.drawable.favorite_f : R.drawable.favorite_nf);
+
+            btnFavorite.setOnClickListener(v -> {
+                boolean newState = !meal.isFavorite();
+                meal.setFavorite(newState);
+                btnFavorite.setImageResource(newState ?
+                        R.drawable.favorite_f : R.drawable.favorite_nf);
+                favoriteListener.onFavoriteClick(meal, newState);
             });
+
+            itemView.setOnClickListener(v -> listener.onMealClick(meal));
         }
     }
 }

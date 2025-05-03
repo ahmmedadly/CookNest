@@ -174,7 +174,7 @@ public class LoginActivity extends Activity {
                 });
     }
 
-  /*  @Override
+   @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -183,7 +183,7 @@ public class LoginActivity extends Activity {
             startActivity(intent);
             finish();
         }
-    }*/
+    }
 
     private void loginUser() {
         String userEmail = email.getText().toString().trim();

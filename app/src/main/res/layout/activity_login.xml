@@ -1,87 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
     android:background="#FFF9F1"
-    android:orientation="vertical">
-<!-- App Title -->
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- App Title -->
     <TextView
         android:id="@+id/tvAppTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CookNest"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        android:textColor="#FF5722"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"/>
-<!-- Email Input improved styling-->
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="CookNest"
+        android:textColor="#FF5722"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <!-- Email Input -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Email">
+        app:boxStrokeColor="#FF5722"
+        app:hintTextColor="#FF5722">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
-    <!-- Password Input improved styling -->
+
+    <!-- Password Input -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Password">
+        app:boxStrokeColor="#FF5722"
+        app:hintTextColor="#FF5722">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Password"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
-<!-- Login Button -->
-    <Button
+
+    <!-- Login Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:textSize="16sp"
-        android:backgroundTint="#FF5722"
-        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp"
         android:text="Login"
-        android:background="@drawable/rounded_button"/>
-<!-- Guest Login Button -->
+        app:backgroundTint="#FF5722"
+        app:cornerRadius="8dp"
+        android:textColor="@android:color/white"/>
+
+    <!-- Guest Login -->
     <TextView
         android:id="@+id/btnGuestLogin"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Continue as Guest"
-        android:textColor="#FF5722"
-        android:textSize="16sp"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="16dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginBottom="16dp"/>
-    <!-- OR (The Page Divider) -->
+        android:paddingTop="16dp"
+        android:text="Continue as Guest"
+        android:textColor="#FF5722"
+        android:textSize="16sp"/>
+
+    <!-- Divider -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OR"
+        android:layout_marginVertical="8dp"
         android:padding="12dp"
+        android:text="--------------------------------------OR--------------------------------------"
         android:textAlignment="center"
-        android:textColor="#888"
-        android:layout_marginVertical="8dp"/>
-<!-- Facebook Login Button -->
+        android:textColor="#888"/>
+
+    <!-- Facebook Login -->
     <com.facebook.login.widget.LoginButton
         android:id="@+id/buttonFacebookLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_gravity="center_horizontal" />
-<!-- Google Login Button -->
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Google Login -->
     <Button
         android:id="@+id/btnGoogleCustom"
         android:layout_width="match_parent"
@@ -91,8 +108,9 @@
         android:drawableStart="@drawable/ic_google_logo"
         android:text="Continue with Google"
         android:textColor="@color/black"
-        android:textStyle="bold" />
-    <!-- Redirect to Register  -->
+        android:textStyle="bold"/>
+
+    <!-- Register Link -->
     <TextView
         android:id="@+id/textRegister"
         android:layout_width="match_parent"
@@ -101,17 +119,17 @@
         android:text="No account? Register here"
         android:textAlignment="center"
         android:textColor="#FF5722"
-        android:textSize="16sp" />
-    <!-- Forgot Pass -->
+        android:textSize="16sp"/>
+
+    <!-- Forgot Password -->
     <TextView
         android:id="@+id/textForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
-        android:textColor="@color/nav_selected"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="8dp"
         android:clickable="true"
-        android:focusable="true"/>
-
+        android:focusable="true"
+        android:paddingTop="8dp"
+        android:text="Forgot Password?"
+        android:textColor="@color/nav_selected"/>
 </LinearLayout>

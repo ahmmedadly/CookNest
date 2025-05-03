@@ -26,27 +26,31 @@ public class MainPresenter {
     }
 
     public void getRandomMeal() {
+        view.showLoading(true);
         Log.d("API_CALL", "Fetching random meal");
         apiService.getRandomMeal().enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                view.showLoading(false);
                 Log.d("API_RESPONSE", "Status: " + response.code());
-                if (response.isSuccessful()) {
-                    if (response.body() == null) {
-                        view.showError("Empty response body");
-                        return;
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Meal> meals = response.body().getMeals();
+                    if (meals != null && !meals.isEmpty()) {
+                        Log.d("API_DATA", "Received meal: " + meals.get(0).getStrMeal());
+                        view.showRandomMeal(meals.get(0)); // Use showRandomMeal instead of showMeals
+                    } else {
+                        view.showError("No meals in response");
                     }
-                    Log.d("API_DATA", "Received: " + response.body().toString());
-                    view.showMeals(response.body().getMeals());
                 } else {
-                    view.showError("Server error: " + response.code());
+                    view.showError(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<MealResponse> call, Throwable t) {
+                view.showLoading(false);
                 Log.e("API_FAILURE", "Error: ", t);
-                view.showError("Network error: " + t.getMessage());
+                view.showError(t.getMessage());
             }
         });
     }
@@ -56,7 +60,7 @@ public class MainPresenter {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    view.showMeals(response.body().getMeals());
+                    view.showRandomMeal(response.body().getMeals().get(0));
                 } else {
                     view.showError("No meals found");
                 }

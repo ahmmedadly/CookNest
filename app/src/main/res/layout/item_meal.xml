@@ -18,13 +18,29 @@
             android:layout_height="200dp"
             android:scaleType="centerCrop"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
         <TextView
             android:id="@+id/tvMealName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_toStartOf="@id/btnFavorite"/>
+
+            <ImageButton
+                android:id="@+id/btnFavorite"
+                android:layout_width="40dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/favorite"
+                android:src="@drawable/favorite_nf" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvMealCategory"
