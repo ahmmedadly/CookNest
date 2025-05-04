@@ -18,6 +18,8 @@ import com.example.cooknest.data.db.MealRepository;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.Adapters.MealAdapter;
 import com.example.cooknest.view.MealDetailsActivity;
+import com.google.android.material.snackbar.Snackbar;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
@@ -86,8 +88,24 @@ public class FavoritesFragment extends Fragment {
                     mealRepository.insertMeal(meal);
                     if (isFavorite) {
                         Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+                    } else {//snak bar to undo delete from favorite
+                        mealRepository.deleteMeal(meal);
+                        // Show Snackbar with Undo
+                        Snackbar snackbar = Snackbar.make(
+                                requireView(),
+                                "Removed from favorites",
+                                Snackbar.LENGTH_LONG
+                        );
+                        snackbar.setAction("Undo", v -> {
+                            meal.setFavorite(true);
+                            mealRepository.insertMeal(meal);
+                            loadFavorites();
+                            Toast.makeText(getContext(), "Restored to favorites", Toast.LENGTH_SHORT).show();
+                        });
+                        snackbar.show();
+                        //to reload data after remove from favorite
+                        loadFavorites();
+
                     }
                 }
         );
