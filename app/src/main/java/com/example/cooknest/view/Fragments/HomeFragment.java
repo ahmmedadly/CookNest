@@ -50,17 +50,20 @@ public class HomeFragment extends Fragment implements MainView {
         progressBar = view.findViewById(R.id.progressBar);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         mealRepository = new MealRepository(requireActivity());
-
         // Setup adapter
         adapter = new MealAdapter(
                 meal -> {
                     Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
-                    intent.putExtra("MEAL_ID", meal.getIdMeal());
+                    intent.putExtra(MealDetailsActivity.EXTRA_MEAL_ID, String.valueOf(meal.getIdMeal()));
                     startActivity(intent);
                 },
                 (meal, isFavorite) -> {
                     meal.setFavorite(isFavorite);
-                    mealRepository.insertMeal(meal);
+                    if(isFavorite) {
+                        mealRepository.insertMeal(meal);
+                    }else {
+                        mealRepository.deleteMeal(meal);
+                    }
                     Toast.makeText(getContext(),
                             isFavorite ? "Added to favorites" : "Removed from favorites",
                             Toast.LENGTH_SHORT).show();

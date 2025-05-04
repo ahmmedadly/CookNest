@@ -44,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="4dp"
-                        app:drawableStartCompat="@drawable/ic_category" />
+                        app:drawableStartCompat="@drawable/category" />
 
                     <TextView
                         android:id="@+id/tvArea"
@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:drawablePadding="4dp"
-                        app:drawableStartCompat="@drawable/ic_location" />
+                        app:drawableStartCompat="@drawable/area" />
                 </LinearLayout>
 
                 <TextView
@@ -73,5 +73,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:contentDescription="TODO"
-        app:srcCompat="@drawable/favorite_nf" />
+        app:srcCompat="@drawable/favorite_nf"
+        app:tint="@null"/> <!--just to disable the tint -->
 </RelativeLayout>

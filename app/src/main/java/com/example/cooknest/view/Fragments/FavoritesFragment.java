@@ -37,7 +37,6 @@ public class FavoritesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         recyclerView = view.findViewById(R.id.rvFavorites);
         tvEmpty = view.findViewById(R.id.tvEmpty);
@@ -45,6 +44,7 @@ public class FavoritesFragment extends Fragment {
 
         mealRepository = new MealRepository(requireActivity());
         setupAdapter();
+        recyclerView.setAdapter(adapter);
         swipeRefreshFavorites = view.findViewById(R.id.swipeRefresh);
         swipeRefreshFavorites.setOnRefreshListener(() -> {
             loadFavorites();  // Reload data
@@ -55,32 +55,17 @@ public class FavoritesFragment extends Fragment {
 
         return view;
     }
-    /*@Override
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-        mealRepository = new MealRepository(requireActivity());
-        adapter = new MealAdapter(
-                meal -> {
-                    // Handle meal click
-                    Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
-                    intent.putExtra("MEAL_ID", meal.getIdMeal());
-                    startActivity(intent);
-                },
-                (meal, isFavorite) -> {
-                    // Handle favorite toggle
-                    if (!isFavorite) {
-                        mealRepository.deleteMeal(meal);
-                        Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
-                        loadFavorites(); // Refresh the list after removal
-                    }
-                }
-        );}*/
+        super.onViewCreated(view, savedInstanceState);
+    }
     private void setupAdapter() {
         adapter = new MealAdapter(
                 meal -> {
                     // Handle meal click - open details
+                    Log.d("FavoritesFragment", "Clicked meal ID: " + meal.getIdMeal());
                     Intent intent = new Intent(getContext(), MealDetailsActivity.class);
-                    intent.putExtra("MEAL_ID", meal.getIdMeal());
+                    intent.putExtra(MealDetailsActivity.EXTRA_MEAL_ID, String.valueOf(meal.getIdMeal()));
                     startActivity(intent);
                 },
                 (meal, isFavorite) -> {
@@ -117,7 +102,6 @@ public class FavoritesFragment extends Fragment {
             if (meals != null && !meals.isEmpty()) {
                 recyclerView.setVisibility(View.VISIBLE);
                 adapter.setMeals(mealLiveData.getValue());
-                recyclerView.setAdapter(adapter);
                 Log.d("HomeFragment", "Meals loaded: " + meals.size());
             } else {
                 Log.d("HomeFragment", "No meals found.");

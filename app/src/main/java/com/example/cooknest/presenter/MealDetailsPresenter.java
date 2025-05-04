@@ -49,11 +49,14 @@ public class MealDetailsPresenter {
         }).start();
     }
 
-    public void toggleFavorite() {
+    public void toggleFavorite(Meal currentMeal) {
         if (currentMeal != null) {
             new Thread(() -> {
-                currentMeal.setFavorite(!currentMeal.isFavorite());
-                repository.insertMeal(currentMeal);
+                if (currentMeal.isFavorite()) {
+                    repository.insertMeal(currentMeal);
+                }else {
+                    repository.deleteMeal(currentMeal);
+                }
             }).start();
         }
     }

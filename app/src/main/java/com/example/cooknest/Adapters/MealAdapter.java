@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.cooknest.R;
 import com.example.cooknest.data.model.Meal;
+import com.google.android.material.button.MaterialButton;
+
 import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
@@ -60,13 +62,14 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         private final ImageView ivMeal;
         private final TextView tvMealName, tvMealCategory;
         private final ImageButton btnFavorite;
-
+        private final MaterialButton btnViewDetails;
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
             ivMeal = itemView.findViewById(R.id.ivMeal);
             tvMealName = itemView.findViewById(R.id.tvMealName);
             tvMealCategory = itemView.findViewById(R.id.tvMealCategory);
             btnFavorite = itemView.findViewById(R.id.btnFavorite);
+            btnViewDetails = itemView.findViewById(R.id.btnViewDetails);
         }
 
         void bind(Meal meal) {
@@ -88,6 +91,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
             });
 
             itemView.setOnClickListener(v -> listener.onMealClick(meal));
+            btnViewDetails.setOnClickListener(v -> listener.onMealClick(meal));
+
         }
     }
 }

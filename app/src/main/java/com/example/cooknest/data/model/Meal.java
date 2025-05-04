@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "favorite_meals")
 public class Meal {
         @PrimaryKey
+        @NonNull
         private int idMeal;
         private String strMeal;
         private String strCategory;

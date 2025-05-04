@@ -16,13 +16,14 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     private MealDetailsPresenter presenter;
     private FloatingActionButton fabFavorite;
     private boolean isFavorite = false;
-
+    private Meal currentMeal;
+    public static final String EXTRA_MEAL_ID= "MEAL_ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_details);
 
-        String mealId = getIntent().getStringExtra("MEAL_ID");
+        String mealId = getIntent().getStringExtra(EXTRA_MEAL_ID);
 
 
         Log.d("MealDetailsActivity", "MealId: " + mealId);
@@ -39,10 +40,13 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     }
 
     private void toggleFavorite() {
+        if (currentMeal != null) {
         isFavorite = !isFavorite;
+                currentMeal.setFavorite(isFavorite);
         fabFavorite.setImageResource(isFavorite ?
-                R.drawable.ic_favorite_filled : R.drawable.ic_favorite_border);
-        presenter.toggleFavorite();
+                R.drawable.favorite_f : R.drawable.favorite_nf);
+            presenter.toggleFavorite(currentMeal);
+        }
     }
 
     @Override
@@ -51,6 +55,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             showError("No meal details available");
             return;
         }
+        this.currentMeal = meal;
         Glide.with(this)
                 .load(meal.getStrMealThumb())
                 .into((ImageView) findViewById(R.id.ivMealThumb));
@@ -67,13 +72,13 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     public void setFavoriteStatus(boolean isFavorite) {
         this.isFavorite = isFavorite;
         fabFavorite.setImageResource(isFavorite ?
-                R.drawable.ic_favorite_filled : R.drawable.ic_favorite_border);
+                R.drawable.favorite_f : R.drawable.favorite_nf);
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Notify fragments to refresh
         setResult(RESULT_OK);
+        finish();
     }
     @Override
     public void showError(String message) {
