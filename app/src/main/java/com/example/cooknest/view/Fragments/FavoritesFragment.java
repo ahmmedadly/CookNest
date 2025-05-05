@@ -123,4 +123,9 @@ public class FavoritesFragment extends Fragment {
             });
         }).start();
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadFavorites();
+    }
 }

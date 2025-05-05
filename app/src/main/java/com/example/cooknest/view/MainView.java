@@ -1,5 +1,6 @@
 package com.example.cooknest.view;
 
+import com.example.cooknest.data.model.Ingredient;
 import com.example.cooknest.data.model.Meal;
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface MainView {
     void showLoading(boolean isLoading);
     void showError(String message);
     void showMessage(String message);
+
+
 }

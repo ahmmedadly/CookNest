@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.cooknest.data.db.MealRepository;
+import com.example.cooknest.data.model.IngredientResponse;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.data.model.MealResponse;
 import com.example.cooknest.data.network.ApiService;
@@ -37,7 +38,7 @@ public class MainPresenter {
                     List<Meal> meals = response.body().getMeals();
                     if (meals != null && !meals.isEmpty()) {
                         Log.d("API_DATA", "Received meal: " + meals.get(0).getStrMeal());
-                        view.showRandomMeal(meals.get(0)); // Use showRandomMeal instead of showMeals
+                        view.showRandomMeal(meals.get(0));
                     } else {
                         view.showError("No meals in response");
                     }
@@ -55,22 +56,4 @@ public class MainPresenter {
         });
     }
 
-    public void getMealsByCategory(String category) {
-        apiService.getMealsByCategory(category).enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    view.showRandomMeal(response.body().getMeals().get(0));
-                } else {
-                    view.showError("No meals found");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable t) {
-                view.showError(t.getMessage());
-            }
-
-        });
-    }
 }
