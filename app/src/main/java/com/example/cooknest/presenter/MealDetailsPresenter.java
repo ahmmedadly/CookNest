@@ -6,7 +6,7 @@ import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.data.model.MealResponse;
 import com.example.cooknest.data.network.ApiService;
 import com.example.cooknest.data.network.RetrofitClient;
-import com.example.cooknest.view.MealDetailsView;
+import com.example.cooknest.contract.MealDetailsView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -1,8 +1,8 @@
-package com.example.cooknest.view;
+package com.example.cooknest.contract;
 
 import com.example.cooknest.data.model.Meal;
 
-public interface MealView {
+public interface MealDetailsView {
     void showMealDetails(Meal meal);
     void setFavoriteStatus(boolean isFavorite);
     void showError(String message);

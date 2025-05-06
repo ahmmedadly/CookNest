@@ -1,15 +1,15 @@
-package com.example.cooknest.view;
+package com.example.cooknest.ui;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.cooknest.R;
-import com.example.cooknest.view.Fragments.HomeFragment;
+import com.example.cooknest.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.cooknest.view.Fragments.SearchFragment;
-import com.example.cooknest.view.Fragments.FavoritesFragment;
-import com.example.cooknest.view.Fragments.PlannerFragment;
-import com.example.cooknest.view.Fragments.ProfileFragment;
+import com.example.cooknest.ui.search.SearchFragment;
+import com.example.cooknest.ui.favorite.FavoritesFragment;
+import com.example.cooknest.ui.calender.PlannerFragment;
+import com.example.cooknest.ui.profile.ProfileFragment;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 

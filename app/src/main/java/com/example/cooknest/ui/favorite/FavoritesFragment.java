@@ -1,4 +1,4 @@
-package com.example.cooknest.view.Fragments;
+package com.example.cooknest.ui.favorite;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ import com.example.cooknest.R;
 import com.example.cooknest.data.db.MealRepository;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.Adapters.MealAdapter;
-import com.example.cooknest.view.MealDetailsActivity;
+import com.example.cooknest.ui.MealDetailsActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;

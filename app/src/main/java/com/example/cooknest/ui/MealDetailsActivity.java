@@ -1,4 +1,4 @@
-package com.example.cooknest.view;
+package com.example.cooknest.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.cooknest.R;
+import com.example.cooknest.contract.MealDetailsView;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.presenter.MealDetailsPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

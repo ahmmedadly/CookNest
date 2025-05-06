@@ -1,6 +1,5 @@
-package com.example.cooknest.view;
+package com.example.cooknest.contract;
 
-import com.example.cooknest.data.model.Ingredient;
 import com.example.cooknest.data.model.Meal;
 import java.util.List;
 

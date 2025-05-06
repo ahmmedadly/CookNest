@@ -1,4 +1,4 @@
-package com.example.cooknest.view;
+package com.example.cooknest.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +15,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.AuthCredential;
 import com.google.android.gms.tasks.Task;
-
-import java.text.BreakIterator;
 
 public class RegisterActivity extends Activity {
     private EditText name ,email, password, confirmPassword;

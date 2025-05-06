@@ -1,6 +1,5 @@
-package com.example.cooknest.view.Fragments;
+package com.example.cooknest.ui.search;
 
-import static java.security.AccessController.getContext;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

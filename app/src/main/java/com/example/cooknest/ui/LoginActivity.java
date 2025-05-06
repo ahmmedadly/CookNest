@@ -1,4 +1,4 @@
-package com.example.cooknest.view;
+package com.example.cooknest.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

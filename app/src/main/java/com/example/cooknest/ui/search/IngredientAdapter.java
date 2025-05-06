@@ -1,4 +1,4 @@
-package com.example.cooknest.Adapters;
+package com.example.cooknest.ui.search;
 
 import android.view.LayoutInflater;
 import android.view.View;

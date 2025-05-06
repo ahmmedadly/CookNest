@@ -1,4 +1,4 @@
-package com.example.cooknest.view.Fragments;
+package com.example.cooknest.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,23 +16,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.cooknest.Adapters.AreaAdapter;
-import com.example.cooknest.Adapters.CategoryAdapter;
-import com.example.cooknest.Adapters.IngredientAdapter;
+import com.example.cooknest.ui.search.AreaAdapter;
+import com.example.cooknest.ui.search.CategoryAdapter;
+import com.example.cooknest.ui.search.IngredientAdapter;
 import com.example.cooknest.Adapters.MealAdapter;
 import com.example.cooknest.R;
 import com.example.cooknest.data.db.MealRepository;
 import com.example.cooknest.data.model.AreaResponse;
 import com.example.cooknest.data.model.CategoryResponse;
-import com.example.cooknest.data.model.Ingredient;
 import com.example.cooknest.data.model.IngredientResponse;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.data.model.MealResponse;
 import com.example.cooknest.data.network.ApiService;
 import com.example.cooknest.data.network.RetrofitClient;
 import com.example.cooknest.presenter.MainPresenter;
-import com.example.cooknest.view.MainView;
-import com.example.cooknest.view.MealDetailsActivity;
+import com.example.cooknest.contract.MainView;
+import com.example.cooknest.ui.MealDetailsActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

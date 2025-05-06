@@ -4,12 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.cooknest.data.db.MealRepository;
-import com.example.cooknest.data.model.IngredientResponse;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.data.model.MealResponse;
 import com.example.cooknest.data.network.ApiService;
 import com.example.cooknest.data.network.RetrofitClient;
-import com.example.cooknest.view.MainView;
+import com.example.cooknest.contract.MainView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
