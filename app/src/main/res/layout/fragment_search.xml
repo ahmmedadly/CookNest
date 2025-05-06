@@ -8,14 +8,20 @@
     android:padding="16dp">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search meals">
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/search"
+        app:endIconContentDescription="@string/Search"
+        app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Search..."
+            android:imeOptions="actionSearch"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

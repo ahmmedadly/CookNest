@@ -20,15 +20,10 @@ public interface ApiService {
 
     @GET("filter.php")
     Call<MealResponse> getMealsByIngredient(@Query("i") String ingredient);
-
     @GET("lookup.php")
     Call<MealResponse> getMealDetails(@Query("i") int mealId);
-
-     @GET("search.php")
-     Call<MealResponse> searchMealsByName(@Query("s") String name);
-
-     @GET("lookup.php")
-     Call<MealResponse> getMealById(@Query("i") String id);
+    @GET("search.php")
+    Call<MealResponse> searchMeals(@Query("s") String query);
      @GET("categories.php")
      Call<CategoryResponse> getCategories();
 
@@ -37,6 +32,5 @@ public interface ApiService {
 
      @GET("list.php?i=list")
      Call<IngredientResponse> getIngredients();
-
 
 }
