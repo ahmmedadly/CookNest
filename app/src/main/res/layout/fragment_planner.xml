@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp">
-
+    android:padding="16dp"
+    android:background="@color/background_g">
+    <!-- Header Text -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Weekly Meal Plan"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginBottom="16dp"/>
-
+        android:textColor="#333"
+        android:layout_marginBottom="12dp"/>
+    <!-- CalendarView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlanner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_meal_plan"/>
+        tools:listitem="@layout/item_meal_plan" />
+
+    <CalendarView
+        android:id="@+id/calendarView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/background_color"/>
 
 </LinearLayout>

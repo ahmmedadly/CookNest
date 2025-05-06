@@ -8,4 +8,7 @@
     <color name="teal">#018786</color>
     <color name="nav_selected">#FF5722</color> <!-- Orange -->
     <color name="nav_unselected">#757575</color> <!-- Gray -->
+    <color name="background_color">#72B69D59</color>
+    <color name="background_g">#F8EFD2</color>
+
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="#FFF9F1"
+    android:background="@color/background_g"
     android:orientation="vertical">
 
     <!-- App Title -->

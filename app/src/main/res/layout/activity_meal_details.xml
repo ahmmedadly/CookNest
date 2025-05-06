@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/background_g"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -72,6 +73,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="TODO"
         app:srcCompat="@drawable/favorite_nf"
         app:tint="@null"/> <!--just to disable the tint -->

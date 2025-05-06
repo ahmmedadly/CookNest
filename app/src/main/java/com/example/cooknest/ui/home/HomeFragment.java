@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,7 +44,6 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment implements MainView {
 
     private RecyclerView recyclerView, rvCategories, rvAreas, rvIngredients;
-    private ProgressBar progressBar;
     private MealAdapter adapter;
     private MainPresenter presenter;
     private SwipeRefreshLayout swipeRefresh;
@@ -74,7 +72,6 @@ public class HomeFragment extends Fragment implements MainView {
         rvCategories = view.findViewById(R.id.rvCategories);
         rvAreas = view.findViewById(R.id.rvAreas);
         rvIngredients = view.findViewById(R.id.rvIngredients);
-        progressBar = view.findViewById(R.id.progressBar);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         rvLazyMeals = view.findViewById(R.id.rvLazyMeals);
         lazyMealAdapter = new MealAdapter(
@@ -268,13 +265,11 @@ public class HomeFragment extends Fragment implements MainView {
 
 
     private void loadMeals() {
-        progressBar.setVisibility(View.VISIBLE);
         presenter.getRandomMeal();
     }
 
     @Override
     public void showRandomMeal(Meal meal) {
-        progressBar.setVisibility(View.GONE);
         adapter.setMeals(Collections.singletonList(meal));
     }
 
@@ -300,14 +295,12 @@ public class HomeFragment extends Fragment implements MainView {
 
     @Override
     public void showLoading(boolean isLoading) {
-        progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-        swipeRefresh.setRefreshing(isLoading);
+                swipeRefresh.setRefreshing(isLoading);
     }
 
     @Override
     public void showError(String message) {
-        progressBar.setVisibility(View.GONE);
-        if (getView() != null) {
+                if (getView() != null) {
             Snackbar.make(getView(), "Error: " + message, Snackbar.LENGTH_LONG)
                     .setAction("Retry", v -> {
                         loadMeals();

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/background_g"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -28,6 +29,7 @@
         android:id="@+id/rvFavorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/background_g"
         android:padding="8dp"
         tools:listitem="@layout/item_meal"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
