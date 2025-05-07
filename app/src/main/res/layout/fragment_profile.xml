@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
     <LinearLayout
@@ -13,39 +13,38 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="76dp"
+            android:layout_height="79dp"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/profile" />
 
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_height="36dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="24dp"/>
-        <!-- Add these after tvEmail and before btnLogout -->
+            android:layout_height="32dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/background_color"
             app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="179dp"
-                android:backgroundTint="@color/background_color"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -128,7 +127,7 @@
             android:text="Logout"
             android:textColor="@color/white"
             android:backgroundTint="@color/nav_selected"
-            app:icon="@drawable/error_image"
+            app:icon="@drawable/logout"
             app:iconTint="@color/white"
             android:layout_marginTop="16dp"/>
 
