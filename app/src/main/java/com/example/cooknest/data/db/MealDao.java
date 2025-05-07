@@ -23,8 +23,6 @@ public interface MealDao {
 
     @Query("SELECT * FROM favorite_meals WHERE isPlanned = 1")
     List<Meal> getAllPlannedMeals();
-   // @Query("UPDATE meal_table SET isFavorite = :isFavorite WHERE idMeal = :mealId")
-    //void updateFavoriteStatus(String mealId, boolean isFavorite);
     @Query("SELECT * FROM favorite_meals WHERE idMeal = :mealId")
     Meal getMealById(int mealId);
 }

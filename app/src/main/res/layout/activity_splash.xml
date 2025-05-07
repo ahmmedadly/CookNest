@@ -3,30 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#752911">
+    android:background="@drawable/fade_background">
 
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="40dp"
         android:alpha="0"
         android:text="CookNest"
-        android:textColor="@android:color/white"
+        android:textColor="#803F2E"
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <!-- Welcome Message at Bottom -->
+    <TextView
+        android:id="@+id/tvWelcomeMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="25sp"
+        android:textStyle="italic"
+        android:textColor="#803F2E"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"/>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/splashAnimation"
-        android:layout_width="wrap_content"
-        android:layout_height="590dp"
+        android:layout_width="288dp"
+        android:layout_height="361dp"
         android:layout_alignTop="@+id/appName"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="74dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="209dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"

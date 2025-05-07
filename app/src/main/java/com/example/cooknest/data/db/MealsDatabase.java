@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import com.example.cooknest.data.model.Category;
 import com.example.cooknest.data.model.Meal;
 
-@Database(entities = {Meal.class, Category.class}, version = 1, exportSchema = false)
+@Database(entities = {Meal.class, Category.class}, version = 2, exportSchema = false)
 public abstract class MealsDatabase extends RoomDatabase {
     private static MealsDatabase instance;
 

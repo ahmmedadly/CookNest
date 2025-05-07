@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/ivMeal"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="184dp"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -49,18 +49,18 @@
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/favorite"
+                android:padding="6dp"
                 android:src="@drawable/favorite_nf"
-                android:tint="@color/black"
-                android:padding="6dp" />
+                android:tint="@color/black" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewDetails"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
                 android:text="View Details"
                 android:textColor="@color/black"
-                android:layout_marginStart="8dp"
                 app:cornerRadius="12dp" />
         </LinearLayout>
     </LinearLayout>

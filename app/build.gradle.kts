@@ -70,4 +70,5 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.4.0")
     implementation ("androidx.core:core-ktx:1.8.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0")
 }

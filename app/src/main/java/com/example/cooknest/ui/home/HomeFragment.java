@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment implements MainView {
                 }
         );
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
     }
 
@@ -239,7 +239,7 @@ public class HomeFragment extends Fragment implements MainView {
     }
     private void loadLazyMeals() {
         List<Meal> lazyMeals = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             apiService.getRandomMeal().enqueue(new Callback<MealResponse>() {
                 @Override
                 public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {

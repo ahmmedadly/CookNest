@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.cooknest.R;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
@@ -15,6 +16,23 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        // Typewriter Effect for Welcome Message
+        TextView tvWelcomeMsg = findViewById(R.id.tvWelcomeMsg);
+        String welcomeText = "Don't know how to cook?\nI got you. Don't worry!";
+        final int delay = 50;
+        final Handler handler = new Handler();
+        final int[] index = {0};
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (index[0] <= welcomeText.length()) {
+                    tvWelcomeMsg.setText(welcomeText.substring(0, index[0]));
+                    index[0]++;
+                    handler.postDelayed(this, delay);
+                }
+            }
+        }, 1000);
 
         TextView appNameText = findViewById(R.id.appName);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(appNameText, View.ALPHA, 0f, 1f);
