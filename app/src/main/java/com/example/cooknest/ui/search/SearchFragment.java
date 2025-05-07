@@ -1,5 +1,6 @@
 package com.example.cooknest.ui.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cooknest.Adapters.MealAdapter;
 import com.example.cooknest.R;
+import com.example.cooknest.data.db.MealRepository;
 import com.example.cooknest.data.model.Meal;
 import com.example.cooknest.data.model.MealResponse;
 import com.example.cooknest.data.network.ApiService;
 import com.example.cooknest.data.network.RetrofitClient;
+import com.example.cooknest.ui.MealDetailsActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -36,6 +39,7 @@ public class SearchFragment extends Fragment {
     private MealAdapter adapter;
 
     private ApiService apiService;
+    private MealRepository mealRepository;
 
     public SearchFragment() {
     }
@@ -44,6 +48,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+        mealRepository = new MealRepository(requireActivity());
 
         // Init views
         textInputLayout = view.findViewById(R.id.textInputLayout);
@@ -56,11 +61,18 @@ public class SearchFragment extends Fragment {
 
         // Setup RecyclerView
         adapter = new MealAdapter(meal -> {
-            // Handle meal click
-            Toast.makeText(getContext(), "Meal clicked: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
+        intent.putExtra(MealDetailsActivity.EXTRA_MEAL_ID, String.valueOf(meal.getIdMeal()));
+        startActivity(intent);
         }, (meal, isFavorite) -> {
-            // Handle favorite click
-            Toast.makeText(getContext(), "Favorite clicked: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+        if (isFavorite) {
+         mealRepository.insertMeal(meal);
+        } else {
+         mealRepository.deleteMeal(meal);
+        }
+            Toast.makeText(getContext(),
+                    isFavorite ? "Added to favorites" : "Removed from favorites",
+                    Toast.LENGTH_SHORT).show();
         });
         if (getContext() != null) {
             adapter.setMeals(new ArrayList<>());
@@ -77,7 +89,7 @@ public class SearchFragment extends Fragment {
             if (!query.isEmpty()) {
                 performSearch(query);
             } else {
-                Toast.makeText(getContext(), "Please enter a search keyword", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please use a search filter for better result", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,7 +106,7 @@ public class SearchFragment extends Fragment {
                         textInputLayout.setHint("Enter ingredient");
                         break;
                     default:
-                        textInputLayout.setHint("Enter Meal Name");
+                        textInputLayout.setHint("Please use a filter below to search by Meal Name");
                         break;
                 }
             }
