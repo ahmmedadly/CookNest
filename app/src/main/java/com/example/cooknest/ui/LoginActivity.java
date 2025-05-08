@@ -62,12 +62,10 @@ public class LoginActivity extends Activity {
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
-
             @Override
             public void onCancel() {
                 Toast.makeText(LoginActivity.this, "Facebook login canceled", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(LoginActivity.this, "Facebook login error", Toast.LENGTH_SHORT).show();
@@ -142,7 +140,7 @@ public class LoginActivity extends Activity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign-in success, go to MainActivity or Home
+                        // Sign-in success, go to MainActivity
                         FirebaseUser user = mAuth.getCurrentUser();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
@@ -174,7 +172,7 @@ public class LoginActivity extends Activity {
                 });
     }
 
-  /* @Override
+   @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -183,7 +181,7 @@ public class LoginActivity extends Activity {
             startActivity(intent);
             finish();
         }
-    }*/
+    }
 
     private void loginUser() {
         String userEmail = email.getText().toString().trim();

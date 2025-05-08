@@ -1,8 +1,14 @@
 package com.example.cooknest.ui;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,40 +19,82 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.cooknest.R;
 import com.example.cooknest.contract.MealDetailsView;
+import com.example.cooknest.data.db.MealRepository;
+import com.example.cooknest.data.model.Ingredient;
 import com.example.cooknest.data.model.Meal;
+import com.example.cooknest.data.model.MealResponse;
+import com.example.cooknest.data.model.PlannedMeals;
 import com.example.cooknest.presenter.MealDetailsPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MealDetailsActivity extends AppCompatActivity implements MealDetailsView {
     private MealDetailsPresenter presenter;
     private FloatingActionButton fabFavorite;
     private boolean isFavorite = false;
     private Meal currentMeal;
+
+    private FloatingActionButton btnAddToCalendar;
+    Meal meal;
     public static final String EXTRA_MEAL_ID= "MEAL_ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_details);
 
-        String mealId = getIntent().getStringExtra(EXTRA_MEAL_ID);
+        // String mealId = getIntent().getStringExtra(EXTRA_MEAL_ID);
+
+        meal = (Meal) getIntent().getSerializableExtra(EXTRA_MEAL_ID);
 
 
-        Log.d("MealDetailsActivity", "MealId: " + mealId);
+        btnAddToCalendar = findViewById(R.id.btnAddToCalendar);
+        btnAddToCalendar.setOnClickListener(v -> handleAddToCalendar());
+
+        Log.d("MealDetailsActivity", "MealId: " + meal.getIdMeal());
 
         presenter = new MealDetailsPresenter(this, getApplicationContext());
 
         fabFavorite = findViewById(R.id.fabFavorite);
         fabFavorite.setOnClickListener(v -> toggleFavorite());
-
-        if (mealId != null) {
-            presenter.loadMealDetails(mealId);
-            presenter.checkIfFavorite(mealId);
-        }
+        showMealDetails(meal);
     }
+    private void handleAddToCalendar() {
+        // Get current time as default
+        Calendar calendar = Calendar.getInstance();
+        new DatePickerDialog(this, (view, year, month, day) -> {
+            calendar.set(year, month, day);
+            new TimePickerDialog(this, (timeView, hour, minute) -> {
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                createCalendarEvent(calendar.getTimeInMillis());
+            }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), false).show();
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+    public static String convertMillisToDateString(long millis) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millis);
 
+        int year = calendar.get(Calendar.YEAR) % 100; // Last two digits of the year
+        int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        return String.format(Locale.getDefault(), "%02d%02d%02d", year, month, day);
+    }
+    private void createCalendarEvent(long startTime) {
+       // List<Ingredient> ingredients = currentMeal.getIngredientsList();
+      Log.i("test",  convertMillisToDateString(startTime));
+        MealRepository a=new MealRepository(this);
+        a.insertPlannedMeal(new PlannedMeals(currentMeal.getIdMeal(), convertMillisToDateString(startTime)));
+    }
     private void toggleFavorite() {
         if (currentMeal != null) {
             isFavorite = !isFavorite;

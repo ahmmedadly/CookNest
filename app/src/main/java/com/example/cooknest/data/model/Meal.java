@@ -1,12 +1,19 @@
 package com.example.cooknest.data.model;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Entity(tableName = "favorite_meals")
-public class Meal {
+public class Meal implements Serializable {
         @PrimaryKey
         @NonNull
         private int idMeal;
@@ -18,6 +25,8 @@ public class Meal {
         private String strYoutube;
         private boolean isFavorite;
         private boolean isPlanned;
+        public String ingredients;
+        private String measures;
         private String strIngredient1;
         private String strIngredient2;
         private String strIngredient3;
@@ -215,4 +224,40 @@ public void setStrIngredient1(String strIngredient1) { this.strIngredient1 = str
                         default: return null;
                 }
         }
+        public List<Ingredient> getIngredientsList() {
+                List<Ingredient> list = new ArrayList<>();
+
+                List<String> ingredientsList = Arrays.asList(ingredients.split("\\|"));
+                List<String> measuresList = Arrays.asList(measures.split("\\|"));
+
+                for (int i = 0; i < ingredientsList.size(); i++) {
+                        String ingredient = ingredientsList.get(i);
+                        String measure = (i < measuresList.size()) ? measuresList.get(i) : "";
+
+                        if (!ingredient.isEmpty()) {
+                                Ingredient ing = new Ingredient();
+                                ing.setStrIngredient(ingredient.trim());
+                                ing.setStrMeasure(measure.trim());
+                                list.add(ing);
+                        }
+                }
+                return list;
+        }
+
+        // Existing methods
+        public void setIngredients(List<String> ingredients) {
+                this.ingredients = TextUtils.join("|", ingredients);
+        }
+
+        public List<String> getIngredients() {
+                return Arrays.asList(ingredients.split("\\|"));
+        }
+
+    public void setMeasures(String measures) {
+        this.measures = measures;
+    }
+    public String getMeasures() {
+        return measures;
+    }
+
 }

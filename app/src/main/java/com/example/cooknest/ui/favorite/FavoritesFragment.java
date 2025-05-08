@@ -65,7 +65,7 @@ public class FavoritesFragment extends Fragment {
                     // Handle meal click - open details
                     Log.d("FavoritesFragment", "Clicked meal ID: " + meal.getIdMeal());
                     Intent intent = new Intent(getContext(), MealDetailsActivity.class);
-                    intent.putExtra(MealDetailsActivity.EXTRA_MEAL_ID, String.valueOf(meal.getIdMeal()));
+                    intent.putExtra(MealDetailsActivity.EXTRA_MEAL_ID, meal);
                     startActivity(intent);
                 },
                 (meal, isFavorite) -> {

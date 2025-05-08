@@ -4,16 +4,41 @@ import android.content.Context;
 import com.example.cooknest.data.db.MealDao;
 import com.example.cooknest.data.db.MealsDatabase;
 import com.example.cooknest.data.model.Meal;
+import com.example.cooknest.data.model.PlannedMeals;
+
 import java.util.List;
 
 public class MealRepository {
     private MealDao mealDao;
+    private PlannedMealDao plannedMealDao;
+
 
     public MealRepository(Context context) {
         MealsDatabase database = MealsDatabase.getInstance(context);
         mealDao = database.mealDao();
+        plannedMealDao = database.plannedMealDao();
     }
 
+
+    public void insertPlannedMeal(PlannedMeals plannedMeal) {
+        new Thread(() -> plannedMealDao.insertPlannedMeal(plannedMeal)).start();
+    }
+
+    public void deletePlannedMeal(PlannedMeals plannedMeal) {
+        new Thread(() -> plannedMealDao.deletePlannedMeal(plannedMeal)).start();
+    }
+
+    public List<PlannedMeals> getAllPlannedMeals() {
+        return plannedMealDao.getAllPlannedMeals();
+    }
+
+    public PlannedMeals getPlannedMealById(int mealId) {
+        return plannedMealDao.getPlannedMealById(mealId);
+    }
+
+    public List<PlannedMeals> getPlannedMealsByDate(String date) {
+        return plannedMealDao.getPlannedMealsByDate(date);
+    }
     public void insertMeal(Meal meal) {
         new Thread(() -> mealDao.insertMeal(meal)).start();
     }
@@ -24,10 +49,6 @@ public class MealRepository {
 
     public List<Meal> getAllFavoriteMeals() {
         return mealDao.getAllFavoriteMeals();
-    }
-
-    public List<Meal> getAllPlannedMeals() {
-        return mealDao.getAllPlannedMeals();
     }
 
     public Meal getMealById(int mealId) {
