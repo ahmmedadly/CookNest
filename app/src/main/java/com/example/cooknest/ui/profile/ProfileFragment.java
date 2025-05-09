@@ -7,11 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.cooknest.R;
 import com.example.cooknest.ui.LoginActivity;
@@ -29,7 +25,6 @@ public class ProfileFragment extends Fragment {
     private TextView tvUserName, tvEmail;
     private CircleImageView ivProfile;
     private MaterialButton btnLogout;
-    // Add this at the top of your class
     private static final int REAUTH_REQUEST = 123;
 
     private void setupClickListeners(MaterialButton btnLogout, TextView... textViews) {

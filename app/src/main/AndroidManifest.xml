@@ -40,9 +40,6 @@
             tools:node="merge"
             tools:replace="android:authorities" />
         <activity
-            android:name=".ui.GuestHomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.MainActivity"
             android:exported="true" />
         <activity

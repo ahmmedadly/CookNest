@@ -75,7 +75,7 @@ public class FavoritesFragment extends Fragment {
                         Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
                     } else {//snak bar to undo delete from favorite
                         mealRepository.deleteMeal(meal);
-                        // Show Snackbar with Undo
+                        //  Snackbar with Undo
                         Snackbar snackbar = Snackbar.make(
                                 requireView(),
                                 "Removed from favorites",

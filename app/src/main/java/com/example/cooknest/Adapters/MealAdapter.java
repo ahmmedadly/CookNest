@@ -1,6 +1,5 @@
 package com.example.cooknest.Adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.example.cooknest.R;
 import com.example.cooknest.data.model.Meal;
 import com.google.android.material.button.MaterialButton;
-
 import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {

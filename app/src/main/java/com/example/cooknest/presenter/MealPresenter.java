@@ -21,7 +21,6 @@ public class MealPresenter {
         this.repository = new MealRepository(context);
         this.apiService = RetrofitClient.getInstance().getApiService();
     }
-
     public void getMealDetails(int mealId) {
         apiService.getMealDetails(mealId).enqueue(new Callback<MealResponse>() {
             @Override
